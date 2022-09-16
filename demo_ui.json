@@ -1,0 +1,107 @@
+[
+    {
+        "AXFrame": "{{0, 0}, {390, 844}}",
+        "AXUniqueId": null,
+        "frame": {
+            "y": 0,
+            "x": 0,
+            "width": 390,
+            "height": 844
+        },
+        "role_description": "application",
+        "AXLabel": "Sunset",
+        "content_required": false,
+        "type": "Application",
+        "title": null,
+        "help": null,
+        "custom_actions": [],
+        "AXValue": null,
+        "enabled": true,
+        "role": "AXApplication",
+        "subrole": null
+    },
+    {
+        "AXFrame": "{{0, 47}, {95, 44}}",
+        "AXUniqueId": null,
+        "frame": {
+            "y": 47,
+            "x": 0,
+            "width": 95,
+            "height": 44
+        },
+        "role_description": "back button",
+        "AXLabel": "Settings",
+        "content_required": false,
+        "type": "Button",
+        "title": null,
+        "help": null,
+        "custom_actions": [],
+        "AXValue": null,
+        "enabled": true,
+        "role": "AXButton",
+        "subrole": null
+    },
+    {
+        "AXFrame": "{{0, 0}, {390, 844}}",
+        "AXUniqueId": null,
+        "frame": {
+            "y": 0,
+            "x": 0,
+            "width": 390,
+            "height": 844
+        },
+        "role_description": "群组",
+        "AXLabel": null,
+        "content_required": false,
+        "type": "Group",
+        "title": null,
+        "help": null,
+        "custom_actions": [],
+        "AXValue": null,
+        "enabled": true,
+        "role": "AXGroup",
+        "subrole": null
+    },
+    {
+        "AXFrame": "{{40, 138.33333333333334}, {119.33333333333331, 20.333333333333343}}",
+        "AXUniqueId": null,
+        "frame": {
+            "y": 138.33333333333334,
+            "x": 40,
+            "width": 119.33333333333331,
+            "height": 20.333333333333343
+        },
+        "role_description": "text",
+        "AXLabel": "Inspiration from",
+        "content_required": false,
+        "type": "StaticText",
+        "title": null,
+        "help": null,
+        "custom_actions": [],
+        "AXValue": null,
+        "enabled": true,
+        "role": "AXStaticText",
+        "subrole": null
+    },
+    {
+        "AXFrame": "{{293.66666666666669, 138.33333333333334}, {56.333333333333314, 20.333333333333343}}",
+        "AXUniqueId": null,
+        "frame": {
+            "y": 138.33333333333334,
+            "x": 293.66666666666669,
+            "width": 56.333333333333314,
+            "height": 20.333333333333343
+        },
+        "role_description": "text",
+        "AXLabel": "懵鱼 罗",
+        "content_required": false,
+        "type": "StaticText",
+        "title": null,
+        "help": null,
+        "custom_actions": [],
+        "AXValue": null,
+        "enabled": true,
+        "role": "AXStaticText",
+        "subrole": null
+    }
+]
