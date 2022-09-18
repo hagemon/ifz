@@ -5,34 +5,6 @@ import parser
 import logger
 
 
-class DeviceType(Enum):
-    PHONE_11 = 'iPhone 11'
-    PHONE_11_P = 'iPhone 11 Pro'
-    PHONE_11_PM = 'iPhone 11 Pro Max'
-    PHONE_12 = 'iPhone 12'
-    PHONE_12_P = 'iPhone 12 Pro'
-    PHONE_12_PM = 'iPhone 12 Pro Max'
-    PHONE_12_MI = 'iPhone 12 mini'
-    PHONE_13 = 'iPhone 13'
-    PHONE_13_P = 'iPhone 13 Pro'
-    PHONE_13_PM = 'iPhone 13 Pro Max'
-    PHONE_13_MI = 'iPhone 13 mini'
-    PHONE_14 = 'iPhone 14'
-    PHONE_14_P = 'iPhone 14 Pro'
-    PHONE_14_PM = 'iPhone 14 Pro Max'
-    PHONE_SE = 'iPhone SE (2nd generation)'
-    PHONE_8 = 'iPhone 8'
-    PHONE_8_P = 'iPhone 8 Plus'
-
-    @staticmethod
-    def get_name(value: str):
-        try:
-            return DeviceType(value)
-        except ValueError as e:
-            print('Device "{}" is not supported'.format(value))
-            exit(0)
-
-
 class DeviceStatus(Enum):
     SHUTDOWN = 'SHUTDOWN'
     BOOTED = 'BOOTED'
@@ -62,6 +34,11 @@ class Device:
     def boot(self):
         devices = executor.ls_device()
         info = parser.parse_devices_list(devices, self.device_type)
+        if not info:
+            print('Device {} is not installed, try to install it or choose one available:'.format(self.device_type))
+            print(parser.show_devices_list(devices))
+            exit(1)
+
         self.status = DeviceStatus.get_name(info['status'])
         self.udid = info['udid']
         self.version = info['version']
@@ -86,12 +63,9 @@ class Device:
         if self.active_app:
             self.active_app.get_widgets()
 
-    def random_event(self):
-        if self.active_app:
-            print('starting event')
-            self.active_app.random_tap()
-            self.get_current_ui()
+    def apply_fuzzing_action(self):
+        pass
 
     def __str__(self):
-        return '{} ({})'.format(self.device_type.value, self.udid)
+        return '{} ({})'.format(self.device_type, self.udid)
 

@@ -15,6 +15,7 @@ class Singleton(type):
 class Executor(metaclass=Singleton):
     @staticmethod
     def _execute(cmd):
+        print(cmd)
         return subprocess.run(cmd, shell=True, capture_output=True, text=True).stdout
 
     def ls_device(self):
@@ -43,7 +44,6 @@ class Executor(metaclass=Singleton):
         return view
 
     def tap(self, x, y, udid):
-        print('tap {} {}'.format(x, y))
         self._execute('idb ui tap {} {} --udid {}'.format(x, y, udid))
         time.sleep(0.5)
 

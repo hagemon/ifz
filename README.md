@@ -45,22 +45,36 @@ More info on [idb document](https://fbidb.io/docs/installation).
 
 ## Usage
 
-1. Edit config.yaml.
-2. Alter `main.py` or directly run it to perform 10 random tap for app under test.
+1. Edit `config.yaml`, like:
 
-A demo of `config.yaml`:
+    ```yaml
+    device: iPhone 13  # Device name
+    bundle: hagemon.TimeTo  # Bundle ID of app under test.
+    ```
 
-```yaml
-device: iPhone 13
-bundles:
-  - hagemon.TimeTo  # Bundle ID of app under test.
-```
+2. Implement fuzzing method by derive `Fuzzing` class, or just using `RandomFuzzing`:
+
+    ```python
+    class RandomFuzzing(Fuzzing):
+    @action_decorator
+    def action(self, app: App):
+        executable = app.executable_widgets
+        index = random.randint(0, len(executable))
+        w = executable[index]
+        tap(w.center.x, w.center.y, app.udid)
+    ```
+   `action_decorator` helps you to refresh GUI layout status after taking an action, or you can drop it and handle yourself.
+3. Alter and run `main.py` to fit your requirements.
 
 ## Components
 
+### main.py
+
+The entrance of this tool, responsible for booting device and apps under test, and performing random events on execucable widgets.
+
 ### config.yaml
 
-Specify the device and bundles (apps) for the tool, only installed simulators in the following list can be used for now.
+Specify the device and bundles (apps) for the tool, only installed simulators can be used for now.
 
 Available devices would be listed if wrong or empty devices are specified.
 
@@ -70,19 +84,13 @@ A wrapper for executing `idb` commands to perform core functions such as listing
 
 Executor is utilized in a singleton manner. Just `from executor import executor` to use these APIs.
 
-### main.py
-
-The entrance of this tool, responsible for booting device and apps under test, and performing random events on  exeucable widgets.
-
 ### device.py
 
-A wrapper of device, consists of enumerations of device types and status. The `Device` class persists basic information about device and functions for booting, launching app, fetch UI status and trigger random events.
-
-Fetching UI and trigger events would call some functions of currently activated application, more details in `app.py`.
+A wrapper of device, persists basic information about device and functions for booting, launching app, fetch GUI status.
 
 ### app.py
 
-A wrapper of app, consists of widgets on the current screen. Executable widgets are also marked for performing random events.
+A wrapper of app, consists of widgets hierarchy on the current screen.
 
 ### parser.py
 
@@ -123,8 +131,11 @@ We built view hierarchy in a tree formulation as following:
 
 More details shown in `widget.py`
 
+### Fuzzing.py
+
+Implementation of fuzzing criteria, base on the abstract `Fuzzing` class.
+
 ## TBD
 
 - Refine the completeness of view hierarchy.
 - Support multiple devices and apps in parallel.
-- Implement abstract class for fuzzing criteria.

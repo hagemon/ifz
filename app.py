@@ -1,6 +1,5 @@
 from executor import executor
 import parser
-import random
 
 
 class App:
@@ -50,9 +49,3 @@ class App:
             self.executable_widgets.append(root.widget)
         for c in root.childs:
             self.get_executable_widgets(c)
-
-    def random_tap(self):
-        ind = random.randint(0, len(self.executable_widgets)-1)
-        chosen = self.executable_widgets[ind]
-        executor.tap(chosen.center.x, chosen.center.y, udid=self.udid)
-

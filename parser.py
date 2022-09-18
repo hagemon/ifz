@@ -7,7 +7,7 @@ def parse_devices_list(device_list, target):
     for d in devices:
         info = d.split('|')
         device_name = info[0].strip()
-        if device_name == target.value:
+        if device_name == target:
             udid = info[1].strip()
             status = info[2].strip()
             version = info[4].strip()
@@ -16,7 +16,18 @@ def parse_devices_list(device_list, target):
                 'status': status,
                 'version': version
             }
-    raise Exception('Device: {} has not been installed'.format(target))
+    return None
+
+
+def show_devices_list(device_list):
+    devices = device_list.split('\n')
+    s = ''
+    for d in devices:
+        info = d.split('|')
+        device_name = info[0].strip()
+        device_id = info[1].strip()
+        s += '{} | udid: {}\n'.format(device_name, device_id)
+    return s
 
 
 def check_app_installation(app_list, target):
