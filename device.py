@@ -26,7 +26,11 @@ class DeviceType(Enum):
 
     @staticmethod
     def get_name(value: str):
-        return DeviceType(value)
+        try:
+            return DeviceType(value)
+        except ValueError as e:
+            print('Device "{}" is not supported'.format(value))
+            exit(0)
 
 
 class DeviceStatus(Enum):
@@ -36,7 +40,11 @@ class DeviceStatus(Enum):
 
     @staticmethod
     def get_name(value: str):
-        return DeviceStatus(value.upper())
+        try:
+            return DeviceStatus(value.upper())
+        except ValueError as e:
+            print('Status {} is not supported'.format(e))
+            exit(0)
 
 
 class Device:
@@ -61,11 +69,15 @@ class Device:
         if self.status == DeviceStatus.SHUTDOWN:
             executor.boot_device(self.udid)
         else:
-            logger.log('Simulator: {} has already been booted'.format(self.device_type))
+            logger.log('Simulator: {} has already been booted'.format(self))
 
     def launch_app(self, app_name):
+        app_list = executor.ls_apps(self.udid)
+        if not parser.check_app_installation(app_list, app_name):
+            print('App "{}" has not been installed/compiled on "{}"'.format(app_name, self))
+            exit(1)
+        executor.launch_app(self.udid, app_name)
         app = App(app_name, self.udid)
-        executor.launch_app(self.udid, app.name)
         self.apps[app_name] = app
         self.active_app = app
         self.get_current_ui()
@@ -80,4 +92,6 @@ class Device:
             self.active_app.random_tap()
             self.get_current_ui()
 
+    def __str__(self):
+        return '{} ({})'.format(self.device_type.value, self.udid)
 

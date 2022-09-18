@@ -21,17 +21,18 @@ class Executor(metaclass=Singleton):
         devices = self._execute('idb list-targets')[:-1]
         return devices
 
-    def ls_apps(self):
-        apps = self._execute('idb list-apps')
-        print(apps)
+    def ls_apps(self, udid):
+        apps = self._execute('idb list-apps --udid {}'.format(udid))
+        return apps
 
     def boot_device(self, udid):
         self._execute('idb boot {}'.format(udid))
         logger.log('Successfully booting simulator {}'.format(udid))
 
     def launch_app(self, udid, app):
-        self._execute('idb launch --udid {} {}'.format(udid, app))
-        logger.log('Successfully launching app {}'.format(app))
+        log = self._execute('idb launch --udid {} {}'.format(udid, app))
+        # logger.log('Successfully launching app {}'.format(app))
+        logger.log(log)
 
     def get_current_ui(self, udid):
         views = self._execute('idb ui describe-all --udid {} --nested'.format(udid))

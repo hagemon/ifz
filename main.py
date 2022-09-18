@@ -4,9 +4,9 @@ import yaml
 if __name__ == '__main__':
     config = yaml.safe_load(open('config.yaml', 'r'))
 
-    device = Device(DeviceType.get_name(config['device']))
-    device.boot()
-    device.launch_app(config['bundles'][0])
-
-    for _ in range(0):
-        device.random_event()
+    try:
+        device = Device(DeviceType.get_name(config['device']))
+        device.boot()
+        device.launch_app(config['bundles'][0])
+    except KeyError as e:
+        print('Option {} did not set'.format(e))

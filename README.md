@@ -46,7 +46,7 @@ More info on [idb document](https://fbidb.io/docs/installation).
 ## Usage
 
 1. Edit config.yaml.
-1. Alter `main.py` or directly run it to perform 10 random tap for app under test.
+2. Alter `main.py` or directly run it to perform 10 random tap for app under test.
 
 A demo of `config.yaml`:
 
@@ -62,28 +62,7 @@ bundles:
 
 Specify the device and bundles (apps) for the tool, only installed simulators in the following list can be used for now.
 
-```python
-class DeviceType(Enum):
-    PHONE_11 = 'iPhone 11'
-    PHONE_11_P = 'iPhone 11 Pro'
-    PHONE_11_PM = 'iPhone 11 Pro Max'
-    PHONE_12 = 'iPhone 12'
-    PHONE_12_P = 'iPhone 12 Pro'
-    PHONE_12_PM = 'iPhone 12 Pro Max'
-    PHONE_12_MI = 'iPhone 12 mini'
-    PHONE_13 = 'iPhone 13'
-    PHONE_13_P = 'iPhone 13 Pro'
-    PHONE_13_PM = 'iPhone 13 Pro Max'
-    PHONE_13_MI = 'iPhone 13 mini'
-    PHONE_14 = 'iPhone 14'
-    PHONE_14_P = 'iPhone 14 Pro'
-    PHONE_14_PM = 'iPhone 14 Pro Max'
-    PHONE_SE = 'iPhone SE (2nd generation)'
-    PHONE_8 = 'iPhone 8'
-    PHONE_8_P = 'iPhone 8 Plus'
-```
-
-More devices and automatic installation will be supported recently.
+Available devices would be listed if wrong or empty devices are specified.
 
 ### executor.py
 
@@ -147,7 +126,5 @@ More details shown in `widget.py`
 ## TBD
 
 - Refine the completeness of view hierarchy.
-- Automatic installation of simulators.
-- Error tips for undesired behaviours.
 - Support multiple devices and apps in parallel.
 - Implement abstract class for fuzzing criteria.

@@ -19,6 +19,16 @@ def parse_devices_list(device_list, target):
     raise Exception('Device: {} has not been installed'.format(target))
 
 
+def check_app_installation(app_list, target):
+    apps = app_list.split('\n')
+    for a in apps:
+        info = a.split('|')
+        app_name = info[0].strip()
+        if app_name == target:
+            return True
+    return False
+
+
 def parse_widgets_dict(widgets_str):
     widgets_dict = json.loads(widgets_str)
     return widgets_dict
