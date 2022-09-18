@@ -1,6 +1,5 @@
 import json
 from widget import Widget, WidgetTree, WidgetNode
-from executor import executor
 
 
 def parse_devices_list(device_list, target):
@@ -20,35 +19,30 @@ def parse_devices_list(device_list, target):
     raise Exception('Device: {} has not been installed'.format(target))
 
 
-def parse_widgets(widgets_str):
+def parse_widgets_dict(widgets_str):
     widgets_dict = json.loads(widgets_str)
-    widgets = sorted([Widget(d) for d in widgets_dict])
-    return widgets
+    return widgets_dict
 
 
 def parse_tab_view(widget_str):
     tab_dict = json.loads(widget_str)
     tab = Widget(tab_dict)
-    return tab
+    tab_node = WidgetNode(tab)
+    return tab_node
 
 
-def parse_widget_tree(widgets):
-    nodes = [WidgetNode(w)for w in widgets]
-    root = nodes[0]
+def parse_widget_tree(widgets_dict):
+    def parse_tree_cur(nd):
+        n = WidgetNode(Widget(nd))
+        for c in nd['children']:
+            n.childs.append(parse_tree_cur(c))
+        return n
+
+    root_dict = widgets_dict[0]
+    root_widget = Widget(root_dict)
+    root = WidgetNode(root_widget)
+    for node_dict in root_dict['children']:
+        node = parse_tree_cur(node_dict)
+        root.childs.append(node)
     tree = WidgetTree(root)
-    hit = [False for _ in range(len(nodes))]
-    hit[0] = True
-    build_tree(root, nodes, hit, 1)
-    tree.print_tree()
     return tree
-
-
-def build_tree(root, nodes, hit, index):
-    for i in range(index, len(nodes)):
-        node = nodes[i]
-        if not hit[i] and root.widget.contains(node.widget):
-            hit[i] = True
-            if root.widget.is_group:
-                root.childs.append(build_tree(node, nodes, hit, i+1))
-
-    return root

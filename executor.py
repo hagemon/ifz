@@ -34,7 +34,7 @@ class Executor(metaclass=Singleton):
         logger.log('Successfully launching app {}'.format(app))
 
     def get_current_ui(self, udid):
-        views = self._execute('idb ui describe-all --udid {}'.format(udid))
+        views = self._execute('idb ui describe-all --udid {} --nested'.format(udid))
         return views
 
     def get_ui_at(self, x, y, udid):

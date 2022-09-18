@@ -9,7 +9,7 @@ class Widget:
         self.role = widget_dict['role_description']
         self.label = widget_dict['AXLabel']
         self.widget_type = widget_dict['type']
-        self.is_group = self.widget_type in ['Group', 'Application']
+        self.custom_actions = widget_dict['custom_actions']
 
     def contains(self, other):
         return (self.x + self.width > other.center.x > self.x) and (self.y + self.height > other.center.y > self.y)
@@ -18,6 +18,10 @@ class Widget:
         if self.y == other.y:
             return self.x < other.y
         return self.y < other.y
+
+    @property
+    def executable(self):
+        return 'Button' in self.widget_type or len(self.custom_actions) > 0
 
 
 class Point:
@@ -36,7 +40,11 @@ class WidgetNode:
         self.childs.append(node)
 
     def __str__(self):
-        return "{} {}".format(self.widget.label, self.widget.widget_type)
+        return "{} {} ({})".format(
+            self.widget.label,
+            self.widget.widget_type,
+            'executable' if self.widget.executable else 'non-executable'
+        )
 
 
 class WidgetTree:
@@ -45,7 +53,7 @@ class WidgetTree:
 
     def print_tree(self):
         def print_layer(node, i):
-            print('    '*i+'|'+'----'*i, end='')
+            print('     '*i+'|'+'---'*i, end='')
             print(node)
             for n in node.childs:
                 print_layer(n, i+1)

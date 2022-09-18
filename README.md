@@ -53,7 +53,7 @@ A demo of `config.yaml`:
 ```yaml
 device: iPhone 13
 bundles:
-  - hagemon.Sunset  # Bundle ID of app under test.
+  - hagemon.TimeTo  # Bundle ID of app under test.
 ```
 
 ## Components
@@ -108,6 +108,9 @@ A wrapper of app, consists of widgets on the current screen. Executable widgets 
 ### parser.py
 
 A wrapper for parsing raw text from `idb` commands to a structural manner, including devices list, widget layout and so on.
+Rather than using `idb ui decrible-all` command shown in official document, we discovered an option `--nested` in [source
+code](https://github.com/facebook/idb/blob/3cc2e69f281ada4ad209b31fbd350ba7d782e8f5/idb/cli/commands/accessibility.py) 
+of `idb` and get the nested format of GUI layouts.
 
 Note that GUI elements provided by `idb` is not completed, this may due to its inconsistent to `Accessibility Inspector`
 tool in recent versions, causing some group view or its content (e.g. TabView) missing.
@@ -120,17 +123,26 @@ More scenarios are discovering for building view hierarchy, issues are welcomed.
 We built view hierarchy in a tree formulation as following:
 
 ```
-|TimeTo Application
-    |----None Group
-        |--------Add Item Button
-        |--------Cycle Heading
-        |--------stars_logo Image
-        |--------Click Plus Button to Add Items StaticText
-        |--------Tab Bar Group
-            |------------Cycle RadioButton
-            |------------Schedule RadioButton
-            |------------Settings RadioButton
+|TimeTo Application (non-executable)
+     |---Add Item Button (executable)
+     |---Cycle Heading (non-executable)
+     |---None Group (non-executable)
+          |------IN A WEEK Heading (non-executable)
+          |------Clear Night Image (executable)
+          |------Eh..🤔 StaticText (executable)
+          |------arrow.forward Image (executable)
+          |------Done StaticText (executable)
+          |------Clear Night Image (executable)
+          |------Eh..🤔 StaticText (executable)
+          |------arrow.forward Image (executable)
+          |------Done StaticText (executable)
+     |---Tab Bar Group (non-executable)
+          |------Cycle RadioButton (executable)
+          |------Schedule RadioButton (executable)
+          |------Settings RadioButton (executable)
 ```
+
+More details shown in `widget.py`
 
 ## TBD
 
