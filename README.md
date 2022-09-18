@@ -103,7 +103,7 @@ Note that GUI elements provided by `idb` is not completed, this may due to its i
 tool in recent versions, causing some group view or its content (e.g. TabView) missing.
 
 For TabView, which only provide `group` widget without content, we adopted a workaround solution that analysing
-`group` widget's information and apply `idb ui tap x y` to get detailed content.
+`group` widget's information and apply `idb ui describe-point x y` to get detailed content.
 
 More scenarios are discovering for building view hierarchy, issues are welcomed.
 
