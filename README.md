@@ -60,7 +60,7 @@ bundles:
 
 ### config.yaml
 
-Specify the device and bundles(apps) for the tool, only installed simulators in the following list can be used for now.
+Specify the device and bundles (apps) for the tool, only installed simulators in the following list can be used for now.
 
 ```python
 class DeviceType(Enum):
@@ -87,9 +87,9 @@ More devices and automatic installation will be supported recently.
 
 ### executor.py
 
-A wrapper for executing `idb` commands to perform core functions such as listing avaliable devices and apps, booting devices, launching apps, fetching UI layouts and simulating touch events.
+A wrapper for executing `idb` commands to perform core functions such as listing available devices and apps, booting devices, launching apps, fetching UI layouts and simulating touch events.
 
-Executor is utilized in a singleton manner. Just `from executor import executor` to use thses APIs.
+Executor is utilized in a singleton manner. Just `from executor import executor` to use these APIs.
 
 ### main.py
 
