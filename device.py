@@ -32,6 +32,7 @@ class DeviceType(Enum):
 class DeviceStatus(Enum):
     SHUTDOWN = 'SHUTDOWN'
     BOOTED = 'BOOTED'
+    SHUTTING_DOWN = 'SHUTTING DOWN'
 
     @staticmethod
     def get_name(value: str):
@@ -63,7 +64,7 @@ class Device:
             logger.log('Simulator: {} has already been booted'.format(self.device_type))
 
     def launch_app(self, app_name):
-        app = App(app_name)
+        app = App(app_name, self.udid)
         executor.launch_app(self.udid, app.name)
         self.apps[app_name] = app
         self.active_app = app

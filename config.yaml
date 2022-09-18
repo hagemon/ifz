@@ -1,4 +1,3 @@
-device: iPhone 13
+device: iPhone 14
 bundles:
-  - hagemon.Sunset
   - hagemon.TimeTo

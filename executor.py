@@ -33,13 +33,17 @@ class Executor(metaclass=Singleton):
         self._execute('idb launch --udid {} {}'.format(udid, app))
         logger.log('Successfully launching app {}'.format(app))
 
-    def get_current_ui(self):
-        views = self._execute('idb ui describe-all')
+    def get_current_ui(self, udid):
+        views = self._execute('idb ui describe-all --udid {}'.format(udid))
         return views
 
-    def tap(self, x, y):
+    def get_ui_at(self, x, y, udid):
+        view = self._execute('idb ui describe-point {} {} --udid {}'.format(x, y, udid))
+        return view
+
+    def tap(self, x, y, udid):
         print('tap {} {}'.format(x, y))
-        self._execute('idb ui tap {} {}'.format(x, y))
+        self._execute('idb ui tap {} {} --udid {}'.format(x, y, udid))
         time.sleep(0.5)
 
 

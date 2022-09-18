@@ -8,5 +8,5 @@ if __name__ == '__main__':
     device.boot()
     device.launch_app(config['bundles'][0])
 
-    for _ in range(10):
+    for _ in range(0):
         device.random_event()

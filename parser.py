@@ -1,5 +1,6 @@
 import json
-from widget import Widget
+from widget import Widget, WidgetTree, WidgetNode
+from executor import executor
 
 
 def parse_devices_list(device_list, target):
@@ -21,9 +22,33 @@ def parse_devices_list(device_list, target):
 
 def parse_widgets(widgets_str):
     widgets_dict = json.loads(widgets_str)
-    widgets = [Widget(d) for d in widgets_dict]
+    widgets = sorted([Widget(d) for d in widgets_dict])
     return widgets
 
 
+def parse_tab_view(widget_str):
+    tab_dict = json.loads(widget_str)
+    tab = Widget(tab_dict)
+    return tab
+
+
 def parse_widget_tree(widgets):
-    pass
+    nodes = [WidgetNode(w)for w in widgets]
+    root = nodes[0]
+    tree = WidgetTree(root)
+    hit = [False for _ in range(len(nodes))]
+    hit[0] = True
+    build_tree(root, nodes, hit, 1)
+    tree.print_tree()
+    return tree
+
+
+def build_tree(root, nodes, hit, index):
+    for i in range(index, len(nodes)):
+        node = nodes[i]
+        if not hit[i] and root.widget.contains(node.widget):
+            hit[i] = True
+            if root.widget.is_group:
+                root.childs.append(build_tree(node, nodes, hit, i+1))
+
+    return root

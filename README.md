@@ -108,3 +108,29 @@ A wrapper of app, consists of widgets on the current screen. Executable widgets 
 ### parser.py
 
 A wrapper for parsing raw text from `idb` commands to a structural manner, including devices list, widget layout and so on.
+
+Note that GUI elements provided by `idb` is not completed, this may due to `Accessibility Inspector` tool ignore some
+group view or its content (e.g. TabView) in recent versions.
+
+For TabView, which only provide `group` widget without content, we adopted a workaround solution that analysing
+`group` widget's information and apply `idb ui tap x y` to get detailed content.
+
+We built view hierarchy in a tree formulation as following:
+
+```
+|TimeTo Application
+    |----None Group
+        |--------Add Item Button
+        |--------Cycle Heading
+        |--------stars_logo Image
+        |--------Click Plus Button to Add Items StaticText
+        |--------Tab Bar Group
+            |------------Cycle RadioButton
+            |------------Schedule RadioButton
+            |------------Settings RadioButton
+```
+
+## TBD
+
+- Automatic installation of simulators
+- Error tips for undesired behaviours.
