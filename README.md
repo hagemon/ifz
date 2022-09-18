@@ -134,3 +134,4 @@ We built view hierarchy in a tree formulation as following:
 
 - Automatic installation of simulators
 - Error tips for undesired behaviours.
+- Support multiple devices and apps in parallel.
