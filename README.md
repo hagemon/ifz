@@ -150,3 +150,4 @@ More details shown in `widget.py`
 - Automatic installation of simulators.
 - Error tips for undesired behaviours.
 - Support multiple devices and apps in parallel.
+- Implement abstract class for fuzzing criteria.
