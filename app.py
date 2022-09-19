@@ -15,7 +15,7 @@ class App:
         widgets_dict = parser.parse_widgets_dict(widgets_str)
         widgets_tree = parser.parse_widget_tree(widgets_dict)
         self.check_tabs(widgets_tree.root)
-        widgets_tree.print_tree()
+        # widgets_tree.print_tree()
         self.widget_tree = widgets_tree
         self.executable_widgets = []
         self.get_executable_widgets(widgets_tree.root)

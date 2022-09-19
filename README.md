@@ -45,26 +45,40 @@ More info on [idb document](https://fbidb.io/docs/installation).
 
 ## Usage
 
-1. Edit `config.yaml`, like:
+### Configure
+Edit `config.yaml`, like:
 
-    ```yaml
-    device: iPhone 13  # Device name
-    bundle: hagemon.TimeTo  # Bundle ID of app under test.
-    ```
+```yaml
+targets:
+  iPhone 14:
+    - hagemon.TimeTo
+    - hagemon.Nested
+  iPhone 14 Pro:
+    - hagemon.TimeTo
+    - hagemon.Nested
+```
 
-2. Implement fuzzing method by derive `Fuzzing` class, or just using `RandomFuzzing`:
+We support multiple devices and apps running simultaneously, **note that
+you should compile apps on corresponding simulator first.** 
 
-    ```python
-    class RandomFuzzing(Fuzzing):
-    @action_decorator
-    def action(self, app: App):
-        executable = app.executable_widgets
-        index = random.randint(0, len(executable))
-        w = executable[index]
-        tap(w.center.x, w.center.y, app.udid)
-    ```
-   `action_decorator` helps you to refresh GUI layout status after taking an action, or you can drop it and handle yourself.
-3. Alter and run `main.py` to fit your requirements.
+### Fuzzing
+
+Implement fuzzing method by derive `Fuzzing` class, or just using `RandomFuzzing`:
+
+ ```python
+ class RandomFuzzing(Fuzzing):
+ @action_decorator
+ def action(self, app: App):
+     executable = app.executable_widgets
+     index = random.randint(0, len(executable))
+     w = executable[index]
+     tap(w.center.x, w.center.y, app.udid)
+ ```
+`action_decorator` helps you to refresh GUI layout status after taking an action, or you can drop it and handle yourself. 
+
+### Run
+
+Alter and run `main.py` to fit your requirements.
 
 ## Components
 
@@ -138,4 +152,5 @@ Implementation of fuzzing criteria, base on the abstract `Fuzzing` class.
 ## TBD
 
 - Refine the completeness of view hierarchy.
-- Support multiple devices and apps in parallel.
+- Handle detected crashes.
+- More actions supported.

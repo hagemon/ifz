@@ -27,6 +27,6 @@ class RandomFuzzing(Fuzzing):
     @action_decorator
     def action(self, app: App):
         executable = app.executable_widgets
-        index = random.randint(0, len(executable))
+        index = random.randint(0, len(executable)-1)
         w = executable[index]
         tap(w.center.x, w.center.y, app.udid)

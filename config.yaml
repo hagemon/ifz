@@ -1,2 +1,7 @@
-device: iPhone 14
-bundle: hagemon.TimeTo
+targets:
+  iPhone 14:
+    - hagemon.TimeTo
+    - hagemon.Nested
+  iPhone 14 Pro:
+    - hagemon.TimeTo
+    - hagemon.Nested

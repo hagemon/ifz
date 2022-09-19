@@ -23,6 +23,9 @@ class Widget:
     def executable(self):
         return 'Button' in self.widget_type or len(self.custom_actions) > 0
 
+    def __str__(self):
+        return '{} {} {}'.format(self.label, self.x, self.y)
+
 
 class Point:
     def __init__(self, x, y):

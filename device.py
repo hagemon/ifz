@@ -48,11 +48,15 @@ class Device:
         else:
             logger.log('Simulator: {} has already been booted'.format(self))
 
+    def home(self):
+        executor.home(self.udid)
+
     def launch_app(self, app_name):
         app_list = executor.ls_apps(self.udid)
         if not parser.check_app_installation(app_list, app_name):
             print('App "{}" has not been installed/compiled on "{}"'.format(app_name, self))
             exit(1)
+        executor.terminate_app(self.udid, app_name)
         executor.launch_app(self.udid, app_name)
         app = App(app_name, self.udid)
         self.apps[app_name] = app
