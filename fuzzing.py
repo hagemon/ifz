@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from app import App
-from action import tap
+from action import tap, swipe
 import random
 
 
@@ -32,4 +32,5 @@ class RandomFuzzing(Fuzzing):
         executable = app.executable_widgets
         index = random.randint(0, len(executable)-1)
         w = executable[index]
-        return tap(w.center.x, w.center.y, app.udid)
+        direction = random.randint(0, 3)
+        return random.choice([tap(w, app.udid), swipe(w, direction, app.udid)])

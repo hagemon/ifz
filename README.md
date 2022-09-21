@@ -150,5 +150,4 @@ Implementation of fuzzing criteria, base on the abstract `Fuzzing` class.
 ## TBD
 
 - Refine the completeness of view hierarchy.
-- Handle detected crashes.
 - More actions supported.

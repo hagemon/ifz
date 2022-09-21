@@ -85,5 +85,12 @@ class Executor(metaclass=Singleton):
         time.sleep(1)
         return cmd
 
+    def swipe(self, x1, y1, x2, y2, udid):
+        cmd = 'idb ui swipe {} {} {} {} --udid {}'.format(x1, y1, x2, y2, udid)
+        self._execute(cmd, udid)
+        logger.log('swipe {} {} to {} {} udid: {}'.format(x1, y1, x2, y2, udid))
+        time.sleep(1)
+        return cmd
+
 
 executor = Executor()
