@@ -6,10 +6,16 @@ class Widget:
         self.width = frame['width']
         self.height = frame['height']
         self.center = Point(int(self.x+0.5*self.width), int(self.y+0.5*self.height))
-        self.role = widget_dict['role_description']
+        self.role_des = widget_dict['role_description']
+        self.role = widget_dict['role']
         self.label = widget_dict['AXLabel']
         self.widget_type = widget_dict['type']
         self.custom_actions = widget_dict['custom_actions']
+        self.n_child = len(widget_dict['children'])
+
+    @property
+    def has_child(self):
+        return self.n_child > 0
 
     def contains(self, other):
         return (self.x + self.width > other.center.x > self.x) and (self.y + self.height > other.center.y > self.y)

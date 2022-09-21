@@ -1,5 +1,6 @@
 import json
 from widget import Widget, WidgetTree, WidgetNode
+import re
 
 
 def parse_devices_list(device_list, target):
@@ -67,3 +68,9 @@ def parse_widget_tree(widgets_dict):
         root.childs.append(node)
     tree = WidgetTree(root)
     return tree
+
+
+def parse_app_status(app_list_str, app_name):
+    name = app_name.replace('.', '\\.')
+    pid = re.search('{}.*pid=(.*)\n'.format(name), app_list_str).group(1)
+    return pid != 'None'

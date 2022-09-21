@@ -47,6 +47,10 @@ class Device:
             executor.boot_device(self.udid)
         else:
             logger.log('Simulator: {} has already been booted'.format(self))
+        self._connect()
+
+    def _connect(self):
+        executor.connect_device(self.udid)
 
     def home(self):
         executor.home(self.udid)

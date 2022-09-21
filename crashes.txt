@@ -1,0 +1,13 @@
+time: Wed Sep 21 10:36:51 2022 udid: C01C7EB4-213B-4C79-A411-4778076C1E77 app: hagemon.Nested
+with error: app: hagemon.Nested crash!
+trace:
+idb ui tap 357 69 --udid C01C7EB4-213B-4C79-A411-4778076C1E77
+time: Wed Sep 21 10:46:29 2022 udid: C01C7EB4-213B-4C79-A411-4778076C1E77 app: hagemon.Nested
+with error: app: hagemon.Nested crash!
+trace:
+idb ui tap 357 69 --udid C01C7EB4-213B-4C79-A411-4778076C1E77
+
+time: Wed Sep 21 12:14:04 2022 udid: C01C7EB4-213B-4C79-A411-4778076C1E77 app: hagemon.Nested
+with error: app: hagemon.Nested crash!
+trace:
+idb ui tap 337 464 --udid C01C7EB4-213B-4C79-A411-4778076C1E77

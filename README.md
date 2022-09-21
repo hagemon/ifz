@@ -119,8 +119,6 @@ tool in recent versions, causing some group view or its content (e.g. TabView) m
 For TabView, which only provide `group` widget without content, we adopted a workaround solution that analysing
 `group` widget's information and apply `idb ui describe-point x y` to get detailed content.
 
-More scenarios are discovering for building view hierarchy, issues are welcomed.
-
 We built view hierarchy in a tree formulation as following:
 
 ```
@@ -143,7 +141,7 @@ We built view hierarchy in a tree formulation as following:
           |------Settings RadioButton (executable)
 ```
 
-More details shown in `widget.py`
+More scenarios are discovering for building view hierarchy, issues are welcomed.
 
 ### Fuzzing.py
 

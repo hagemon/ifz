@@ -2,6 +2,7 @@ from device import Device
 from fuzzing import RandomFuzzing
 import yaml
 from multiprocessing import Process
+import logger
 
 
 def run(device, apps):
@@ -13,7 +14,12 @@ def run(device, apps):
             device.launch_app(app)
             fuzz = RandomFuzzing()
             for _ in range(20):
-                fuzz.action(device.active_app)
+                try:
+                    fuzz.action(device.active_app)
+                except RuntimeError as e:
+                    logger.log(e)
+                    logger.log_crash(e, device.active_app)
+                    break
     except KeyError as err:
         print('Option {} did not set'.format(err))
 
