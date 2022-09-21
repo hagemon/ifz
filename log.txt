@@ -11,3 +11,11 @@ udid: C01C7EB4-213B-4C79-A411-4778076C1E77 crash on cmd: idb ui swipe 132.0 25.0
                     x_start y_start x_end y_end
 idb ui swipe: error: argument x_start: invalid int value: '132.0'
 
+udid: C01C7EB4-213B-4C79-A411-4778076C1E77 crash on cmd: idb terminate --udid C01C7EB4-213B-4C79-A411-4778076C1E77 hagemon.Nested with err: Error Domain=NSPOSIXErrorDomain Code=3 "No such process" UserInfo={NSLocalizedFailureReason=found nothing to terminate, BSErrorCodeDescription=No such process}
+Info: ["BSErrorCodeDescription": No such process, "NSLocalizedFailureReason": found nothing to terminate]
+
+udid: C01C7EB4-213B-4C79-A411-4778076C1E77 crash on cmd: idb ui swipe 1195.0 328 1173.0 328 --udid C01C7EB4-213B-4C79-A411-4778076C1E77 with err: usage: idb ui swipe [-h] [--duration DURATION] [--delta DELTA] [--udid UDID]
+                    [--log {DEBUG,INFO,WARNING,ERROR,CRITICAL}] [--json]
+                    x_start y_start x_end y_end
+idb ui swipe: error: argument x_start: invalid int value: '1195.0'
+

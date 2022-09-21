@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from app import App
-from action import tap, swipe
 import random
+from action import Tap, Swipe
 
 
 def action_decorator(func):
@@ -17,11 +17,11 @@ def action_decorator(func):
 class Fuzzing(ABC):
     @action_decorator
     @abstractmethod
-    def action(self, app: App):
+    def action(self, app: App) -> str:
         """
         Doing action with the status of app, like widget_tree and executable_widgets
         :param app:
-        :return:
+        :return: command
         """
         pass
 
@@ -32,5 +32,7 @@ class RandomFuzzing(Fuzzing):
         executable = app.executable_widgets
         index = random.randint(0, len(executable)-1)
         w = executable[index]
-        direction = random.randint(0, 3)
-        return random.choice([tap(w, app.udid), swipe(w, direction, app.udid)])
+        tap = Tap()
+        swipe = Swipe()
+        action = random.choice([tap, swipe])
+        return action.apply(w, app.udid, strategy='random')

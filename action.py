@@ -1,36 +1,38 @@
+import random
 from executor import executor
+from abc import ABC, abstractmethod
 
 
-def tap(widget, udid):
-    return executor.tap(widget.center.x, widget.center.y, udid)
+class Action(ABC):
+    @abstractmethod
+    def apply(self, widget, udid, strategy):
+        pass
 
 
-def swipe(widget, direction, udid):
-    """
-    swipe action on specific widget
-    :param widget: widget under test
-    :param direction: swipe direction, 0 for left, 1 for right, 2 for up, 3 for down.
-    :param udid: udid of device
-    :return:
-    """
-    width, height = widget.width, widget.height
-    center = widget.center
-    x1, x2, y1, y2 = center.x, center.y, center.x, center.y
-    if direction == 0:
-        stripe = width // 4
-        x1 -= stripe
-        x2 += stripe
-    elif direction == 1:
-        stripe = width // 4
-        x1 += stripe
-        x2 -= stripe
-    elif direction == 2:
-        stripe = height // 4
-        y1 += stripe
-        y2 -= stripe
-    else:
-        stripe = height // 4
-        y1 -= stripe
-        y2 += stripe
+class Tap(Action):
+    def apply(self, widget, udid, strategy=None):
+        return executor.tap(widget.center.x, widget.center.y, udid)
 
-    return executor.swipe(int(x1), int(x2), int(y1), int(y2), udid)
+
+class Swipe(Action):
+    def apply(self, widget, udid, strategy):
+        """
+        Apply swipe operation
+        :param widget: target widget
+        :param udid: device under test
+        :param strategy: specific swipe direction within "left", "right", "up", "down" and "random", default "random"
+        :return:
+        """
+        offset_x, offset_y = widget.width // 4, widget.height // 4
+        offsets = {
+            'left': [offset_x, 0, -offset_x, 0],
+            'right': [-offset_x, 0, offset_x, 0],
+            'up': [0, -offset_y, 0, offset_y],
+            'down': [0, offset_y, 0, -offset_y]
+        }
+        center = widget.center
+        points = center.x, center.y, center.x, center.y
+        if strategy == 'random':
+            strategy = random.choice(['left', 'right', 'up', 'down'])
+        x1, y1, x2, y2 = [points[i]+offsets[strategy][i] for i in range(4)]
+        return executor.swipe(int(x1), int(y1), int(x2), int(y2), udid)

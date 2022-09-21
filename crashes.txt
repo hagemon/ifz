@@ -18,3 +18,8 @@ trace:
 idb ui tap 1184 328 --udid C01C7EB4-213B-4C79-A411-4778076C1E77
 idb ui tap 337 540 --udid C01C7EB4-213B-4C79-A411-4778076C1E77
 idb ui swipe 333 468 337 464 --udid C01C7EB4-213B-4C79-A411-4778076C1E77
+
+time: Wed Sep 21 23:11:43 2022 udid: C01C7EB4-213B-4C79-A411-4778076C1E77 app: hagemon.Nested
+with error: app: hagemon.Nested crash!
+trace:
+idb ui tap 337 616 --udid C01C7EB4-213B-4C79-A411-4778076C1E77
